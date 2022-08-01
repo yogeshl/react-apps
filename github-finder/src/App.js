@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
+import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import Navbar from './components/layout/Navbar'
 import Alert from './components/layout/Alert'
 import Users from './components/users/Users';
@@ -39,29 +40,46 @@ class App extends Component {
 
   setAlert = (msg, type) => {
     this.setState({ alert: { msg, type}});
-    
+
     setTimeout(() => this.setState({ alert:null}), 5000);
   };
 
   render(){
 
+    
+
     const { users, loading } = this.state;
 
     return (
-      <div className="App">
-         <Navbar />
-         <div className='container'>
+      <Router>
+        <div className="App">
+          <Navbar />
+          <div className='container'>
             <Alert alert={this.state.alert} />
-            <Search 
-              searchUsers={this.searchUsers} 
-              clearUsers={this.clearUsers} 
-              showClear={ users.length > 0 ? true: false } 
-              setAlert={this.setAlert}
-            />
-            <Users loading={loading} users={users} />
-         </div>
+
+            <Routes>
+      
+              <Route exact path="/" element={
+                <Fragment>
+
+                  <Search 
+                      searchUsers={this.searchUsers} 
+                      clearUsers={this.clearUsers} 
+                      showClear={ users.length > 0 ? true: false } 
+                      setAlert={this.setAlert} />
+
+                  <Users loading={loading} users={users} />
+
+                </Fragment>
+              } />
+      
+            </Routes>
+          </div>
       </div>
+      </Router>
     );
+
+    
   }
 }
 
