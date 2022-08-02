@@ -356,7 +356,13 @@ table th {
 
 .navbar ul {
   display: flex;
-  
+}
+.navbar ul li {
+   padding:10px;
+}
+
+.navbar ul li a {
+  color:black;
 }
 
 
